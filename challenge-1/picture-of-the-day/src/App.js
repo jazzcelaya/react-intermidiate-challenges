@@ -23,7 +23,6 @@ export async function getPicture(date) {
 function App() {
   const [date, setDate] = useState('2021-11-11');
   const [media, setMedia] = useState({url:'logo192.png', media_type:'image'});
-  //console.log(process.env)
 
   useEffect(() => {
     async function loadPicture() {
