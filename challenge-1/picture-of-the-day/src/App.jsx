@@ -1,27 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-// import styled from 'styled-components';
-// import logo from './logo.svg';
-import MediaSnippet from './atoms/media/MediaSnippet';
-import './App.css';
-
-export async function getPicture(date) {
-  const apiKey = process.env.REACT_APP_API_KEY;
-  const searchUrl = `https://api.nasa.gov/planetary/apod?api_key=${apiKey}&date=${date}`;
-  try {
-    const response = await axios({
-      url: searchUrl,
-      method: 'GET',
-    });
-    return response;
-  } catch (error) {
-    console.log(error.data);
-    return error;
-  }
-}
+import { getPicture } from './services';
+import MediaSnippet from './components/MediaSnippet/MediaSnippet';
+import { Flex, Input, Box } from './atoms';
 
 function App() {
-  const [date, setDate] = useState('2021-11-11');
+  const [date, setDate] = useState('2021-11-12');
   const [media, setMedia] = useState({ url: 'logo192.png', media_type: 'image' });
 
   useEffect(() => {
@@ -37,13 +20,20 @@ function App() {
   }, [date]);
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>{media.title}</h1>
-        <MediaSnippet url={media.url} />
-        <p>{media.explanation}</p>
-      </header>
-    </div>
+    <Flex>
+      <h1>Astronomy Picture of the Day</h1>
+      <p>
+        Discover the cosmos! Each day a different image or photograph of our fascinating
+        universe is featured, along with a brief explanation written by a professional
+        astronomer
+      </p>
+      <Input function={setDate} />
+      <h2>{media.title}</h2>
+      <Box alignItems="center">
+        <MediaSnippet url={media.url} mediaType={media.media_type} />
+      </Box>
+      <p>{media.explanation}</p>
+    </Flex>
   );
 }
 
