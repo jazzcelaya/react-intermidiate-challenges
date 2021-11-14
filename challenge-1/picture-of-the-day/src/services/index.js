@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 import axios from 'axios';
 
 export async function getPicture(date) {
