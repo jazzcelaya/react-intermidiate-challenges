@@ -9,6 +9,8 @@ Flex.defaultProps = {
   display: 'flex',
   textAlign: 'center',
   flexDirection: 'column',
+  fontFamily: 'Arial, Helvetica, sans-serif',
+  justifyContent: 'center',
 };
 
 export default Flex;

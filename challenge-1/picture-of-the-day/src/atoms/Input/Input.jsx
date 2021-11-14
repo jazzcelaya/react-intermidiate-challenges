@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Flex from '../Flex/Flex';
+import Flex from '../Box/Box';
 
 const Input = styled(Flex)`
   line-height: 24px;
@@ -8,6 +8,7 @@ const Input = styled(Flex)`
 
 Input.defaultProps = {
   as: 'input',
+  textAlign: 'center',
 };
 
 export default Input;

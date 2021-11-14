@@ -10,7 +10,13 @@ export async function getPicture(date) {
     });
     return response;
   } catch (error) {
-    console.log(error.data);
+    const { code, msg } = error.response.data;
+    if (code === 'UNEXPECTED_ERROR') {
+      alert('There was an error, please try again.');
+      return;
+    }
+    console.log('error code ', code);
+    alert(msg);
     return error;
   }
 }
