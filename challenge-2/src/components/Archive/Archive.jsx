@@ -2,12 +2,12 @@ import React from 'react';
 import { Flex } from '../../styled/Body';
 import { NoteCard } from '..';
 
-function Notes() {
+function Archive() {
   return (
     <Flex flexDirection="column">
-      <NoteCard type="create" />
+      <h1>Archive</h1>
       <Flex>
-        <NoteCard color="#ffaaa5" type="update" />
+        <NoteCard color="#ffaaa5" />
         <NoteCard color="#ffd3b6" />
         <NoteCard color="#fcf8f3" />
         <NoteCard color="#ffaaa5" />
@@ -16,4 +16,4 @@ function Notes() {
   );
 }
 
-export default Notes;
+export default Archive;

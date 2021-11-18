@@ -9,14 +9,14 @@ export const StyledNavBar = styled.div`
 `;
 
 export const StyledNavButton = styled.button`
-  margin: 15px; 
+  margin: 15px;
   padding: 10px;
   font-size: 1rem;
   border: none;
   background-color: transparent;
   border-radius: 8%;
 
-  :hover{
-      background-color: #ffd3b6;
+  :hover {
+    background-color: #ffd3b6;
   }
 `;

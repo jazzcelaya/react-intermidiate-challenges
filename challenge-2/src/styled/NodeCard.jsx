@@ -17,5 +17,5 @@ export const StyledColorCircle = styled.div`
   border-radius: 50%;
   display: inline-block;
   margin: 10px;
-  border: solid 1px rgba(210, 215, 211, 1);
-`
+  box-shadow: 1px 1px 3px gray;
+`;

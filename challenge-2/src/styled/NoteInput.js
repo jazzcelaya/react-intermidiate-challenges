@@ -14,12 +14,12 @@ export const StyledNoteWrapper = styled.div`
   box-shadow: 1px 1px 3px gray;
   width: 80%;
 
-  textarea{
-     border: none;
-     background-color: transparent;
+  textarea {
+    border: none;
+    background-color: transparent;
   }
 
-  textarea:focus{
+  textarea:focus {
     outline: none;
     min-height: 4rem;
   }
@@ -31,7 +31,7 @@ export const StyledInput = styled.input`
   text-align: left;
   background-color: transparent;
 
-  :focus{
+  :focus {
     outline: none;
   }
-`
+`;
