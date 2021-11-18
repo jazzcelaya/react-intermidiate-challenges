@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 
 export const StyledNavBar = styled.div`
   display: flex;
@@ -9,11 +8,15 @@ export const StyledNavBar = styled.div`
   justify-content: flex-start;
 `;
 
-export const StyledNavButton = styled.div`
+export const StyledNavButton = styled.button`
+  margin: 15px; 
   padding: 10px;
   font-size: 1rem;
-  
-  a{
-    text-decoration: none;
+  border: none;
+  background-color: transparent;
+  border-radius: 8%;
+
+  :hover{
+      background-color: #ffd3b6;
   }
 `;
