@@ -1,41 +1,109 @@
-import React from 'react';
-import { BiCheck, BiEditAlt, BiArchiveIn } from 'react-icons/bi';
-import { StyledColorCircle } from '../../styled/NodeCard';
+import React, { useState, useEffect } from 'react';
+import { BiCheck, BiSave, BiArchiveIn, BiUndo } from 'react-icons/bi';
+import { StyledColorCircle } from '../../styled/NoteCard';
 import { StyledNoteWrapper, StyledInput } from '../../styled/NoteInput';
 import { Flex, Button } from '../../styled/Body';
 
-function generateButton(type) {
-  if (type === 'create') {
+function NoteCard({ color, type, title, body, dispatch, id, isArchived }) {
+  const [backgroundColor, setbackgroundColor] = useState('');
+  const [noteTitle, setNoteTitle] = useState('');
+  const [noteBody, setNoteBody] = useState('');
+
+  useEffect(() => {
+    setbackgroundColor(color);
+    setNoteTitle(title);
+    setNoteBody(body);
+  }, [color, title, body]);
+
+  const handleCreate = () => {
+    const newNote = {
+      color: backgroundColor,
+      title: noteTitle,
+      body: noteBody,
+      isArchived: false,
+      id: Date.now(),
+    };
+    dispatch({ type: 'add', payload: newNote });
+    setNoteTitle('');
+    setNoteBody('');
+    setbackgroundColor('');
+  };
+
+  const handleArchive = () => {
+    const archivedNote = {
+      color: backgroundColor,
+      title: noteTitle,
+      body: noteBody,
+      isArchived,
+      id,
+    };
+    dispatch({ type: 'archive', payload: archivedNote });
+  };
+
+  const handleTitle = (e) => {
+    e.preventDefault();
+    setNoteTitle(e.target.value);
+  };
+
+  const handleNoteBody = (e) => {
+    e.preventDefault();
+    setNoteBody(e.target.value);
+  };
+
+  function generateButtons(cardType) {
+    if (cardType === 'create') {
+      return (
+        <Button onClick={handleCreate}>
+          Create <BiCheck />
+        </Button>
+      );
+    }
+    if (cardType === 'archived') {
+      return (
+        <Button onClick={handleArchive}>
+          <BiUndo />
+        </Button>
+      );
+    }
     return (
-      <Button>
-        Create <BiCheck />
-      </Button>
+      <div>
+        <Button>
+          <BiSave />
+        </Button>
+        <Button onClick={handleArchive}>
+          <BiArchiveIn />
+        </Button>
+      </div>
     );
   }
-  return (
-    <div>
-      <Button>
-        Update <BiEditAlt />
-      </Button>
-      <Button>
-        Archive <BiArchiveIn />
-      </Button>
-    </div>
-  );
-}
 
-function NoteCard({ color, type }) {
-  const buttons = generateButton(type);
+  const buttons = generateButtons(type);
 
   return (
-    <StyledNoteWrapper background={color}>
-      <StyledInput type="text" placeholder="Title" />
-      <textarea type="text" placeholder="Take a note..." />
+    <StyledNoteWrapper background={backgroundColor}>
+      <StyledInput
+        type="text"
+        placeholder="Title"
+        value={noteTitle}
+        onChange={handleTitle}
+      />
+      <textarea
+        type="text"
+        placeholder="Take a note..."
+        value={noteBody}
+        onChange={handleNoteBody}
+      />
       <Flex>
         <Flex justifyContent="right">
-          <StyledColorCircle color="#ffd3b6" />
-          <StyledColorCircle color="#ffaaa5" />
-          <StyledColorCircle color="#fcf8f3" />
+          <StyledColorCircle
+            color="#ffd3b6"
+            onClick={() => setbackgroundColor('#ffd3b6')}
+          />
+          <StyledColorCircle
+            color="#ffaaa5"
+            onClick={() => setbackgroundColor('#ffaaa5')}
+          />
+          <StyledColorCircle color="white" onClick={() => setbackgroundColor('white')} />
         </Flex>
         {buttons}
       </Flex>

@@ -2,16 +2,22 @@ import React from 'react';
 import { Flex } from '../../styled/Body';
 import { NoteCard } from '..';
 
-function Archive() {
+function Archive({ notes, dispatch }) {
+  const notesBody = notes.map((note) => {
+    return (
+      <NoteCard
+        color={note.color}
+        title={note.title}
+        body={note.body}
+        dispatch={dispatch}
+        id={note.id}
+        type="archived"
+      />
+    );
+  });
   return (
     <Flex flexDirection="column">
-      <h1>Archive</h1>
-      <Flex>
-        <NoteCard color="#ffaaa5" />
-        <NoteCard color="#ffd3b6" />
-        <NoteCard color="#fcf8f3" />
-        <NoteCard color="#ffaaa5" />
-      </Flex>
+      <Flex>{notesBody}</Flex>
     </Flex>
   );
 }
