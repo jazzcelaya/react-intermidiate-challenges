@@ -1,7 +1,8 @@
 import React from 'react';
-import { BiUserCircle } from 'react-icons/bi';
+import { BiUserCircle, BiSearch } from 'react-icons/bi';
 import { Link } from 'react-router-dom';
-import { StyledNavBar, StyledNavButton } from '../../styled/NavBar.styled';
+import { StyledNavBar, StyledNavButton, StyledSearch } from '../../styled/NavBar.styled';
+import { StyledInput } from '../../styled/NoteInput.styled';
 
 function NavBar() {
   return (
@@ -17,6 +18,10 @@ function NavBar() {
       <Link to="/archived">
         <StyledNavButton>Archived</StyledNavButton>
       </Link>
+      <StyledSearch>
+        <BiSearch />
+        <StyledInput placeholder="search" />
+      </StyledSearch>
     </StyledNavBar>
   );
 }
