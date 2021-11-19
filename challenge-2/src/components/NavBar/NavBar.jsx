@@ -1,7 +1,7 @@
 import React from 'react';
 import { BiUserCircle } from 'react-icons/bi';
 import { Link } from 'react-router-dom';
-import { StyledNavBar, StyledNavButton } from '../../styled/NavBar';
+import { StyledNavBar, StyledNavButton } from '../../styled/NavBar.styled';
 
 function NavBar() {
   return (

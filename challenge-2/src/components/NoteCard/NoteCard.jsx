@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { BiCheck, BiSave, BiArchiveIn, BiUndo } from 'react-icons/bi';
-import { StyledColorCircle } from '../../styled/NoteCard';
-import { StyledNoteWrapper, StyledInput } from '../../styled/NoteInput';
-import { Flex, Button } from '../../styled/Body';
+import { StyledColorCircle } from '../../styled/NoteCard.styled';
+import { StyledNoteWrapper, StyledInput } from '../../styled/NoteInput.styled';
+import { Flex, Button } from '../../styled/Body.styled';
 
 function NoteCard({ color, type, title, body, dispatch, id, isArchived }) {
   const [backgroundColor, setbackgroundColor] = useState('');

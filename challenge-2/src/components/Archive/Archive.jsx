@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex } from '../../styled/Body';
+import { Flex } from '../../styled/Body.styled';
 import { NoteCard } from '..';
 
 function Archive({ notes, dispatch }) {
