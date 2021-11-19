@@ -22,6 +22,22 @@ function reducer(notes, action) {
       localStorage.setItem('notes', JSON.stringify(updatedNotes));
       return updatedNotes;
     }
+    case 'search': {
+      const keywords = action.payload;
+      const allNotes = JSON.parse(localStorage.getItem('notes'));
+      if (keywords === '') {
+        return allNotes;
+      }
+      const result = allNotes.filter((note) => {
+        const title = note.title ? note.title : '';
+        const body = note.body ? note.body : '';
+
+        if (title.includes(keywords) || body.includes(keywords)) {
+          return note;
+        }
+      });
+      return result;
+    }
     default:
       return notes;
   }
@@ -40,7 +56,7 @@ function App() {
   return (
     <Router>
       <StyledBody>
-        <NavBar />
+        <NavBar dispatch={dispatch} />
         <Routes>
           <Route path="/" element={<Notes notes={activeNotes} dispatch={dispatch} />} />
           <Route

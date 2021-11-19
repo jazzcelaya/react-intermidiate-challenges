@@ -4,7 +4,13 @@ import { Link } from 'react-router-dom';
 import { StyledNavBar, StyledNavButton, StyledSearch } from '../../styled/NavBar.styled';
 import { StyledInput } from '../../styled/NoteInput.styled';
 
-function NavBar() {
+function NavBar({ dispatch }) {
+  const handleSearch = (e) => {
+    if (e.key === 'Enter') {
+      const keywords = e.target.value;
+      dispatch({ type: 'search', payload: keywords });
+    }
+  };
   return (
     <StyledNavBar>
       <Link to="/login">
@@ -20,7 +26,7 @@ function NavBar() {
       </Link>
       <StyledSearch>
         <BiSearch />
-        <StyledInput placeholder="search" />
+        <StyledInput placeholder="search" onKeyPress={handleSearch} />
       </StyledSearch>
     </StyledNavBar>
   );

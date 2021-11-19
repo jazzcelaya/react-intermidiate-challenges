@@ -11,7 +11,7 @@ export const StyledNavBar = styled.div`
 
 export const StyledNavButton = styled.button`
   margin: 10px;
-  padding: 5px;
+  padding: 10px;
   font-size: 1rem;
   border: none;
   background-color: transparent;
@@ -24,7 +24,6 @@ export const StyledNavButton = styled.button`
 
 export const StyledSearch = styled.div`
   display: flex;
-  flex-wrap: wrap;
   padding: 10px;
   margin: 10px;
   flex-direction: row;
