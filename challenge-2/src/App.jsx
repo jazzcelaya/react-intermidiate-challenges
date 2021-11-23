@@ -1,7 +1,9 @@
-import React, { useReducer, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { StyledBody, StyledPageWrapper } from './styled/Body.styled';
-import { NavBar, Notes, Archive } from './components';
+import React, { useReducer, useEffect, useContext } from 'react';
+import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
+import { StyledBody } from './styled/Body.styled';
+import { NavBar, Notes, Archive, Login } from './components';
+import AuthProvider from './providers/Auth';
+import AuthContext from './state/AuthContext';
 
 function reducer(notes, action) {
   switch (action.type) {
@@ -47,6 +49,7 @@ function App() {
   const [notes, dispatch] = useReducer(reducer, []);
   const activeNotes = notes.filter((note) => !note.isArchived);
   const archivedNotes = notes.filter((note) => note.isArchived);
+  const { authenticated } = useContext(AuthContext);
 
   useEffect(() => {
     const localStorageNotes = localStorage.getItem('notes');
@@ -54,19 +57,32 @@ function App() {
   }, []);
 
   return (
-    <Router>
-      <StyledBody>
-        <NavBar dispatch={dispatch} />
-        <Routes>
-          <Route path="/" element={<Notes notes={activeNotes} dispatch={dispatch} />} />
-          <Route
-            path="/archived"
-            element={<Archive notes={archivedNotes} dispatch={dispatch} />}
-          />
-          <Route path="/login" element={<StyledPageWrapper>Login</StyledPageWrapper>} />
-        </Routes>
-      </StyledBody>
-    </Router>
+    <AuthContext.Provider>
+      <BrowserRouter>
+        <StyledBody>
+          <NavBar dispatch={dispatch} />
+          <AuthProvider>
+            <Routes>
+              <Route
+                path="/"
+                element={<Notes notes={activeNotes} dispatch={dispatch} />}
+              />
+              <Route
+                path="/archived"
+                element={
+                  authenticated ? (
+                    <Archive notes={archivedNotes} dispatch={dispatch} />
+                  ) : (
+                    <Navigate to="/login" />
+                  )
+                }
+              />
+              <Route path="/login" element={<Login />} />
+            </Routes>
+          </AuthProvider>
+        </StyledBody>
+      </BrowserRouter>
+    </AuthContext.Provider>
   );
 }
 

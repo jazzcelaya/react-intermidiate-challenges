@@ -31,6 +31,7 @@ export const Flex = styled.div`
   flex-wrap: wrap;
   justify-content: ${(props) => props.justifyContent};
   flex-direction: ${(props) => props.flexDirection};
+  align-items: center;
 `;
 export const Button = styled.button`
   border: none;
