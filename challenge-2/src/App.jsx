@@ -1,9 +1,9 @@
-import React, { useReducer, useEffect, useContext } from 'react';
+import React, { useReducer, useEffect, useState } from 'react';
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 import { StyledBody } from './styled/Body.styled';
 import { NavBar, Notes, Archive, Login } from './components';
 import AuthProvider from './providers/Auth';
-import AuthContext from './state/AuthContext';
+// import AuthContext from './state/AuthContext';
 
 function reducer(notes, action) {
   switch (action.type) {
@@ -49,7 +49,7 @@ function App() {
   const [notes, dispatch] = useReducer(reducer, []);
   const activeNotes = notes.filter((note) => !note.isArchived);
   const archivedNotes = notes.filter((note) => note.isArchived);
-  const { authenticated } = useContext(AuthContext);
+  const [authenticated, setAutenticated] = useState(false);
 
   useEffect(() => {
     const localStorageNotes = localStorage.getItem('notes');
@@ -57,32 +57,48 @@ function App() {
   }, []);
 
   return (
-    <AuthContext.Provider>
+    <AuthProvider value={{ authenticated }}>
       <BrowserRouter>
         <StyledBody>
           <NavBar dispatch={dispatch} />
-          <AuthProvider>
-            <Routes>
-              <Route
-                path="/"
-                element={<Notes notes={activeNotes} dispatch={dispatch} />}
-              />
-              <Route
-                path="/archived"
-                element={
-                  authenticated ? (
-                    <Archive notes={archivedNotes} dispatch={dispatch} />
-                  ) : (
-                    <Navigate to="/login" />
-                  )
-                }
-              />
-              <Route path="/login" element={<Login />} />
-            </Routes>
-          </AuthProvider>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                authenticated ? (
+                  <Notes notes={activeNotes} dispatch={dispatch} />
+                ) : (
+                  <Navigate to="/login" />
+                )
+              }
+            />
+            <Route
+              path="/archived"
+              element={
+                authenticated ? (
+                  <Archive notes={archivedNotes} dispatch={dispatch} />
+                ) : (
+                  <Navigate to="/login" />
+                )
+              }
+            />
+            <Route
+              path="/login"
+              element={
+                authenticated ? (
+                  <Navigate to="/" />
+                ) : (
+                  <Login
+                    setAutenticated={setAutenticated}
+                    authenticated={authenticated}
+                  />
+                )
+              }
+            />
+          </Routes>
         </StyledBody>
       </BrowserRouter>
-    </AuthContext.Provider>
+    </AuthProvider>
   );
 }
 

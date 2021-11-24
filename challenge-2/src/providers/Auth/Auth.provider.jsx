@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useCallback, useContext } from 'react';
 import { AUTH_STORAGE_KEY } from '../../utils/constants';
-import AuthContext from '../../state/AuthContext';
+// import AuthContext from '../../state/AuthContext';
+
+const AuthContext = React.createContext(null);
 
 const mockedUser = {
   id: '123',
