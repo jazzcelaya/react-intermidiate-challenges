@@ -5,7 +5,7 @@ function MediaSnippet({ url, mediaType }) {
   if (mediaType === 'image') {
     return (
       <Image>
-        <img width="90%" src={url} alt="NASA APOTD" data-testid="APOTD" />
+        <img src={url} alt="NASA APOTD" data-testid="APOTD" />
       </Image>
     );
   }
