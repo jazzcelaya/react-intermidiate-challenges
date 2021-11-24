@@ -59,7 +59,7 @@ function App() {
   return (
     <AuthProvider value={{ authenticated }}>
       <BrowserRouter>
-        <StyledBody>
+        <StyledBody data-testid="app">
           <NavBar dispatch={dispatch} />
           <Routes>
             <Route

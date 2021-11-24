@@ -37,17 +37,25 @@ function Login({ setAutenticated }) {
   };
 
   return (
-    <StyledPageWrapper>
+    <StyledPageWrapper data-testid="login">
       <Flex justifyContent="space-around" flexDirection="row">
         <StyledLoginBox>
-          <StyledInput value={email} placeholder="email" onChange={handleEmail} />
           <StyledInput
+            data-testid="email-input"
+            value={email}
+            placeholder="email"
+            onChange={handleEmail}
+          />
+          <StyledInput
+            data-testid="password-input"
             value={password}
             type="password"
             placeholder="password"
             onChange={handlePassword}
           />
-          <Button onClick={handleLogin}>Log in</Button>
+          <Button onClick={handleLogin} data-testid="login-button">
+            Log in
+          </Button>
         </StyledLoginBox>
       </Flex>
     </StyledPageWrapper>
