@@ -5,7 +5,7 @@ import { StyledLoginBox } from '../../styled/Login.styled';
 import { StyledInput } from '../../styled/NoteInput.styled';
 import { login } from '../../providers/Temp';
 
-function Login({ setAutenticated }) {
+function Login({ setAutenticated, authenticated }) {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -19,11 +19,18 @@ function Login({ setAutenticated }) {
     const response = login(email, password);
     if (response) {
       setAutenticated(true);
+      localStorage.setItem('auth', true);
       refreshCredentials();
       return navigate('/');
     }
     // eslint-disable-next-line no-alert
     return alert('Email or password is not correct.');
+  };
+
+  const handleLogout = () => {
+    setAutenticated(false);
+    localStorage.setItem('auth', false);
+    return navigate('/');
   };
 
   const handleEmail = (e) => {
@@ -40,22 +47,33 @@ function Login({ setAutenticated }) {
     <StyledPageWrapper data-testid="login">
       <Flex justifyContent="space-around" flexDirection="row">
         <StyledLoginBox>
-          <StyledInput
-            data-testid="email-input"
-            value={email}
-            placeholder="email"
-            onChange={handleEmail}
-          />
-          <StyledInput
-            data-testid="password-input"
-            value={password}
-            type="password"
-            placeholder="password"
-            onChange={handlePassword}
-          />
-          <Button onClick={handleLogin} data-testid="login-button">
-            Log in
-          </Button>
+          {authenticated ? (
+            <Flex flexDirection="column">
+              <div>You are Logged In!</div>
+              <Button onClick={handleLogout} data-testid="login-button">
+                Log out
+              </Button>
+            </Flex>
+          ) : (
+            <>
+              <StyledInput
+                data-testid="email-input"
+                value={email}
+                placeholder="email"
+                onChange={handleEmail}
+              />
+              <StyledInput
+                data-testid="password-input"
+                value={password}
+                type="password"
+                placeholder="password"
+                onChange={handlePassword}
+              />
+              <Button onClick={handleLogin} data-testid="login-button">
+                Log in
+              </Button>
+            </>
+          )}
         </StyledLoginBox>
       </Flex>
     </StyledPageWrapper>

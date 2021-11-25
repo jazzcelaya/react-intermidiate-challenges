@@ -40,6 +40,17 @@ function NoteCard({ color, type, title, body, dispatch, id, isArchived }) {
     dispatch({ type: 'archive', payload: archivedNote });
   };
 
+  const handleEdit = () => {
+    const updatedNote = {
+      color: backgroundColor,
+      title: noteTitle,
+      body: noteBody,
+      isArchived,
+      id,
+    };
+    dispatch({ type: 'edit', payload: updatedNote });
+  };
+
   const handleTitle = (e) => {
     e.preventDefault();
     setNoteTitle(e.target.value);
@@ -67,7 +78,7 @@ function NoteCard({ color, type, title, body, dispatch, id, isArchived }) {
     }
     return (
       <div>
-        <Button>
+        <Button onClick={handleEdit}>
           <BiSave />
         </Button>
         <Button onClick={handleArchive}>

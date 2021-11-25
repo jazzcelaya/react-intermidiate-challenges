@@ -24,6 +24,16 @@ function reducer(notes, action) {
       localStorage.setItem('notes', JSON.stringify(updatedNotes));
       return updatedNotes;
     }
+    case 'edit': {
+      const updatedNotes = notes.map((note) => {
+        if (note.id === action.payload.id) {
+          return action.payload;
+        }
+        return note;
+      });
+      localStorage.setItem('notes', JSON.stringify(updatedNotes));
+      return updatedNotes;
+    }
     case 'search': {
       const keywords = action.payload;
       const allNotes = JSON.parse(localStorage.getItem('notes'));
@@ -53,7 +63,9 @@ function App() {
 
   useEffect(() => {
     const localStorageNotes = localStorage.getItem('notes');
+    const localAuth = localStorage.getItem('auth');
     dispatch({ type: 'set', payload: JSON.parse(localStorageNotes) });
+    setAutenticated(localAuth);
   }, []);
 
   return (
@@ -85,14 +97,7 @@ function App() {
             <Route
               path="/login"
               element={
-                authenticated ? (
-                  <Navigate to="/" />
-                ) : (
-                  <Login
-                    setAutenticated={setAutenticated}
-                    authenticated={authenticated}
-                  />
-                )
+                <Login setAutenticated={setAutenticated} authenticated={authenticated} />
               }
             />
           </Routes>

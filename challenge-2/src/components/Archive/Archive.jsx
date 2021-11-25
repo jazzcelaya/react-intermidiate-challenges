@@ -8,6 +8,7 @@ function Archive({ notes, dispatch }) {
       notes.map((note) => {
         return (
           <NoteCard
+            type="archived"
             color={note.color}
             title={note.title}
             body={note.body}
